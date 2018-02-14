@@ -1,0 +1,41 @@
+<!-- Show all posts content_for block -->
+<% content_for :show_all_posts do %>
+    <h1> All Posts </h1>
+    <table>
+        <tr>
+            <th> Title </th>
+            <th> Content </th>
+            <th> Author </th>
+        </tr>
+        <tr>
+            <% @posts.each do |post| %>
+            <td> <%= post.title %> </td>
+            <td><%= post.content %> </td> 
+            <td> <%= post.user.first_name %> </td>
+        </tr>
+            <% end %>
+    </table>
+<% end %>
+
+<% content_for :post_form do %>
+    <h1>New Post </h1> 
+    <form action='post/create' method='POST'>
+        <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+        <label> Title: </label>
+        <input type='text' name='post[title]'>
+        <label> Content: </label>
+        <input type='text' name='post[content]'>
+        <label> Author: </label>
+        <select name='post[user_id]'>
+            <% @authors.each do |author| %>
+            <option value='<%= author.id %>'> <%= author.first_name %> <%= author.last_name %> </option>
+            <% end %>
+        </select>
+        <button> Submit </button>
+    </form>
+<% end %>
+
+<% content_for :go_to_user_index do %>
+    <h1> Go to Users Page </h1>
+    <p> <a href='/'> All Users </a></p>
+<% end %>
